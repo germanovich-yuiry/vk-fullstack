@@ -60,7 +60,7 @@ const CityTable: FC<CityTableProps> = ({ cities, searchText }) => {
   ];
 
   useEffect(() => {
-    setVisibleCities(cities.slice(0, 10));
+    setVisibleCities(cities.slice(0, 15));
   }, [cities]);
 
   useEffect(() => {
