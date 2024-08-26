@@ -1,8 +1,10 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { debounce } from "lodash";
 import { City } from "../types/CityDTO";
+
+import { makeAutoObservable, runInAction } from "mobx";
+
 import fetchCities from "../services/fetchCities";
 
+import { debounce } from "lodash";
 class CitiesStore {
   query: string = "";
   cities: City[] = [];

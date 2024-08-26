@@ -1,7 +1,6 @@
 import { FC } from "preact/compat";
 
 import styled from "styled-components";
-import debounce from "../utils/debounce";
 
 import { observer } from "mobx-react-lite";
 import { useStores } from "../root-store-context";
@@ -26,9 +25,9 @@ const TokenInput: FC = observer(() => {
     cities: { setApiKey },
   } = useStores();
 
-  const handleChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setApiKey((e.target as HTMLInputElement).value);
-  }, 300);
+  };
 
   return (
     <StyledInput
