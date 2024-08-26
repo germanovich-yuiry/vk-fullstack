@@ -1,8 +1,8 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 import { City } from "../types/CityDTO";
 
-import axios from "axios";
+import fetchCities from "../services/fetchCities";
 
 class CitiesStore {
   query: string = "";
@@ -27,19 +27,16 @@ class CitiesStore {
   };
 
   loadCities = async () => {
-    if (this.query) {
+    if (this.query.trim()) {
       try {
-        this.invalidToken = false;
-        this.isLoading = true;
-        this.isError = false;
-        this.errorMessage = "";
-
-        let response = await axios.post(`http://localhost:3000/api/cities`, {
-          key: this.apiKey,
-          v: "5.199",
-          query: this.query,
-          lang: "ru",
+        runInAction(() => {
+          this.invalidToken = false;
+          this.isLoading = true;
+          this.isError = false;
+          this.errorMessage = "";
         });
+
+        let response = await fetchCities(this.query, this.apiKey);
 
         if (response.data.error) {
           if (response.data.error.error_code === 5) {
@@ -50,8 +47,10 @@ class CitiesStore {
           this.cities = response.data.response.items;
         }
       } catch (error) {
-        this.errorMessage = error.message;
-        this.isError = true;
+        runInAction(() => {
+          this.errorMessage = error.message;
+          this.isError = true;
+        });
       } finally {
         this.isLoading = false;
       }
