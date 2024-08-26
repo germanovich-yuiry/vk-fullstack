@@ -9,9 +9,10 @@ class CitiesStore {
   cities: City[] = [];
   errorMessage = "";
   isError = false;
-  loading = false;
+  isLoading = false;
   idle = true;
   apiKey = "";
+  invalidToken = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -19,7 +20,6 @@ class CitiesStore {
 
   setApiKey(key: string) {
     this.apiKey = key;
-    console.log(key);
   }
 
   setQuery(query: string) {
@@ -29,7 +29,8 @@ class CitiesStore {
   async loadCities() {
     if (this.query) {
       try {
-        this.loading = true;
+        this.invalidToken = false;
+        this.isLoading = true;
         this.isError = false;
         this.errorMessage = "";
 
@@ -40,12 +41,19 @@ class CitiesStore {
           lang: "ru",
         });
 
-        this.cities = response.data.response.items;
+        if (response.data.error) {
+          if (response.data.error.error_code === 5) {
+            this.invalidToken = true;
+          }
+          throw new Error(response.data.error.error_msg);
+        } else {
+          this.cities = response.data.response.items;
+        }
       } catch (error) {
-        this.errorMessage = "Ошибка при загрузке данных: " + error.message;
+        this.errorMessage = error.message;
         this.isError = true;
       } finally {
-        this.loading = false;
+        this.isLoading = false;
       }
     }
   }

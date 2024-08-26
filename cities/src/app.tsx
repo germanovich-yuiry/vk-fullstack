@@ -9,9 +9,11 @@ import CityTable from "./components/CityTable";
 import { observer } from "mobx-react-lite";
 import { useCities, useStore } from "./stores/CitiesStore";
 
+import Processing from "./components/Processing";
+
 const Container = styled.div`
   min-width: 360px;
-  max-width: 480px;
+  max-width: 600px;
   min-height: 100vh;
   margin: 0 auto;
   padding: 36px 20px 20px 20px;
@@ -22,6 +24,9 @@ const Container = styled.div`
   font-family: "Regular";
 `;
 
+const Gap = styled.div`
+  height: 20px;
+`;
 const App: FC = observer(() => {
   const cities = useCities();
   const token = useStore().apiKey;
@@ -31,6 +36,9 @@ const App: FC = observer(() => {
     <Container>
       <TokenInput />
       <SearchInput disabled={!!token} />
+
+      <Gap />
+      <Processing />
       <CityTable cities={cities} searchText={query} />
     </Container>
   );
