@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
-
+import { debounce } from "lodash";
 import { City } from "../types/CityDTO";
-
 import fetchCities from "../services/fetchCities";
 
 class CitiesStore {
@@ -16,6 +15,8 @@ class CitiesStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    this.loadCities = debounce(this.loadCities.bind(this), 400);
   }
 
   setApiKey = (key: string) => {
@@ -23,7 +24,10 @@ class CitiesStore {
   };
 
   setQuery = (query: string) => {
-    if (query.trim()) this.query = query;
+    if (query.trim()) {
+      this.query = query;
+      this.loadCities();
+    }
   };
 
   loadCities = async () => {

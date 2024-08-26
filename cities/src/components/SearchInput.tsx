@@ -25,11 +25,11 @@ const SearchInput: FC<{ disabled: boolean }> = observer(() => {
     cities: { setQuery, loadCities, apiKey },
   } = useStores();
 
-  const handleChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = (e.target as HTMLInputElement).value;
     setQuery(query);
     loadCities();
-  }, 300);
+  };
 
   return (
     <StyledInput
