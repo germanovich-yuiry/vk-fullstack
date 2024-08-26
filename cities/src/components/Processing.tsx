@@ -8,7 +8,8 @@ import { useStores } from "../root-store-context";
 const Container = styled.div`
   width: 100%;
   height: 50px;
-  transition: max-height 0.3s ease-in-out;
+  margin-bottom: 20px;
+  transition: max-height 0.4s ease-in-out;
   overflow: hidden;
   max-height: ${({ isOpen }) => (isOpen ? "200px" : "0")};
 `;

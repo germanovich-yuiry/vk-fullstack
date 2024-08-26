@@ -11,7 +11,6 @@ const StyledInput = styled.input`
   text-indent: 16px;
   border-radius: 8px;
   border: 1px solid lightblue;
-  margin-bottom: 20px;
 
   &:: placeholder {
     color: gray;
