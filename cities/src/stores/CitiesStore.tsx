@@ -18,7 +18,10 @@ class CitiesStore {
   constructor() {
     makeAutoObservable(this);
 
-    this.loadCities = debounce(this.loadCities.bind(this), 400);
+    this.loadCities = debounce(
+      this.loadCities.bind(this),
+      800
+    ) as () => Promise<void>;
   }
 
   setApiKey = (key: string) => {
@@ -50,9 +53,10 @@ class CitiesStore {
           }
           throw new Error(response.data.error.error_msg);
         } else {
+          console.log(this.query, "query");
           this.cities = response.data.response.items;
         }
-      } catch (error) {
+      } catch (error: any) {
         runInAction(() => {
           this.errorMessage = error.message;
           this.isError = true;
