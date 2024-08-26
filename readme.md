@@ -1,22 +1,22 @@
 Клиентская часть делает запросы через прокси-сервер.
 
 1. Необходимо склонировать репозиторий
-   git clone https://github.com/germanovich-yuiry/vk-fullstack.git vk
+   'git clone https://github.com/germanovich-yuiry/vk-fullstack.git vk'
 
 2. Войти в папку репозитория
-   cd vk
+   'cd vk'
 
 3. Установить зависимости
-   npm install
+   'npm install'
 
 4. Войти в клиентскую папку
-   cd cities
+   'cd cities'
 
 5. Установить завимости
-   npm install
+   'npm install'
 
 6. Выйти в основную директорию
-   cd..
+   'cd..'
 
 7. Запустить проект локально. Клиент и сервер будет запущен в конкурентном режиме
-   npm run start
+   'npm run start'
