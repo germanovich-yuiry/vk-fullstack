@@ -1,10 +1,7 @@
 import { FC, useEffect, useRef, useState } from "preact/compat";
 import { City } from "../types/CityDTO";
-
 import styled from "styled-components";
-
 import { Table } from "antd";
-
 import { observer } from "mobx-react-lite";
 
 const StyledTable = styled(Table)`
@@ -61,6 +58,7 @@ const CityTable: FC<CityTableProps> = ({ cities, searchText }) => {
 
   useEffect(() => {
     setVisibleCities(cities.slice(0, 15));
+    setStartIndex(15);
   }, [cities]);
 
   useEffect(() => {
@@ -83,6 +81,7 @@ const CityTable: FC<CityTableProps> = ({ cities, searchText }) => {
       if (loadMoreRef.current) {
         observer.unobserve(loadMoreRef.current);
       }
+      observer.disconnect();
     };
   }, [loadMoreRef, cities, startIndex]);
 
