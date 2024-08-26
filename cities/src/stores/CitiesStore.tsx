@@ -18,15 +18,15 @@ class CitiesStore {
     makeAutoObservable(this);
   }
 
-  setApiKey(key: string) {
+  setApiKey = (key: string) => {
     this.apiKey = key;
-  }
+  };
 
-  setQuery(query: string) {
+  setQuery = (query: string) => {
     if (query.trim()) this.query = query;
-  }
+  };
 
-  async loadCities() {
+  loadCities = async () => {
     if (this.query) {
       try {
         this.invalidToken = false;
@@ -56,9 +56,7 @@ class CitiesStore {
         this.isLoading = false;
       }
     }
-  }
+  };
 }
 
-const store = new CitiesStore();
-export const useCities = () => store.cities;
-export const useStore = () => store;
+export default new CitiesStore();

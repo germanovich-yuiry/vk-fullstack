@@ -4,7 +4,7 @@ import styled from "styled-components";
 import debounce from "../utils/debounce";
 
 import { observer } from "mobx-react-lite";
-import { useStore } from "../stores/CitiesStore";
+import { useStores } from "../root-store-context";
 
 const StyledInput = styled.input`
   width: 100%;
@@ -22,10 +22,12 @@ const StyledInput = styled.input`
 `;
 
 const TokenInput: FC = observer(() => {
-  const store = useStore();
+  const {
+    cities: { setApiKey },
+  } = useStores();
 
   const handleChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    store.setApiKey((e.target as HTMLInputElement).value);
+    setApiKey((e.target as HTMLInputElement).value);
   }, 300);
 
   return (

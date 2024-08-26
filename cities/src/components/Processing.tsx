@@ -7,7 +7,7 @@ import { Spin } from "antd";
 import ErrorMessage from "./ErrorMessage";
 
 import { observer } from "mobx-react-lite";
-import { useStore } from "../stores/CitiesStore";
+import { useStores } from "../root-store-context";
 
 const Container = styled.div`
   width: 100%;
@@ -16,7 +16,9 @@ const Container = styled.div`
 `;
 
 const Processing: FC = observer(() => {
-  const { isError, isLoading, errorMessage, invalidToken } = useStore();
+  const {
+    cities: { isError, isLoading, errorMessage, invalidToken },
+  } = useStores();
 
   return (
     <Container>

@@ -7,7 +7,7 @@ import TokenInput from "./components/TokenInput";
 import CityTable from "./components/CityTable";
 
 import { observer } from "mobx-react-lite";
-import { useCities, useStore } from "./stores/CitiesStore";
+import { useStores } from "./root-store-context";
 
 import Processing from "./components/Processing";
 
@@ -28,14 +28,14 @@ const Gap = styled.div`
   height: 20px;
 `;
 const App: FC = observer(() => {
-  const cities = useCities();
-  const token = useStore().apiKey;
-  const query = useStore().query;
+  const {
+    cities: { apiKey, query, cities },
+  } = useStores();
 
   return (
     <Container>
       <TokenInput />
-      <SearchInput disabled={!!token} />
+      <SearchInput disabled={!!apiKey} />
 
       <Gap />
       <Processing />
