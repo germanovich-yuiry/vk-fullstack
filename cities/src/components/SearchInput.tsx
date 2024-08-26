@@ -2,8 +2,6 @@ import { FC } from "preact/compat";
 
 import styled from "styled-components";
 
-import debounce from "../utils/debounce";
-
 import { observer } from "mobx-react-lite";
 import { useStores } from "../root-store-context";
 

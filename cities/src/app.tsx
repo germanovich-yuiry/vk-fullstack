@@ -5,11 +5,10 @@ import styled from "styled-components";
 import SearchInput from "./components/SearchInput";
 import TokenInput from "./components/TokenInput";
 import CityTable from "./components/CityTable";
+import Processing from "./components/Processing";
 
 import { observer } from "mobx-react-lite";
 import { useStores } from "./root-store-context";
-
-import Processing from "./components/Processing";
 
 const Container = styled.div`
   min-width: 360px;
@@ -36,7 +35,6 @@ const App: FC = observer(() => {
     <Container>
       <TokenInput />
       <SearchInput disabled={!!apiKey} />
-
       <Gap />
       <Processing />
       <CityTable cities={cities} searchText={query} />
