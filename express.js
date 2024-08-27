@@ -12,34 +12,18 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.json());
 
 app.post("/api/cities", async (req, res) => {
-  const query = req.body.query;
+  const { query, key, lang } = req.body;
 
-  const key = req.body.key;
-  const lang = req.body.lang;
+  const response = await fetch(
+    `https://api.vk.com/method/database.getCities?access_token=${key}&v=5.199&q=${query}&lang=${lang}`
+  );
+  const data = await response.json();
 
-  try {
-    const response = await axios.get(
-      "http://api.vk.com/method/database.getCities",
-      {
-        params: {
-          access_token: key,
-          v: "5.199",
-          q: query,
-          lang: lang,
-          count: req.body.count,
-          offset: req.body.offset,
-        },
-      }
-    );
-
-    res.json(response.data);
-  } catch (error) {
-    console.error("Ошибка при обращении к VK API:", error);
-    res.status(500).json({ error: "Произошла ошибка при выполнении запроса" });
-  }
+  res.json(data);
 });
 
 app.listen(port, () => {
