@@ -40,7 +40,7 @@ const CityTable: FC<CityTableProps> = ({ cities, searchText }) => {
 
   const columns = [
     {
-      title: "Имя",
+      title: "Город",
       dataIndex: "title",
       render: highlightText,
     },
