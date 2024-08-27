@@ -53,8 +53,8 @@ class CitiesStore {
           }
           throw new Error(response.data.error.error_msg);
         } else {
-          console.log(this.query, "query");
           this.cities = response.data.response.items;
+          this.isError = false;
         }
       } catch (error: any) {
         runInAction(() => {
