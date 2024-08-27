@@ -14,6 +14,7 @@ class CitiesStore {
   idle = true;
   apiKey = "";
   invalidToken = false;
+  fetchError: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -50,10 +51,10 @@ class CitiesStore {
         let response = await fetchCities(this.query, this.apiKey);
 
         if (response.data.error) {
-          if (response.data.error.error_code === 5) {
-            this.invalidToken = true;
-          }
-          throw new Error(response.data.error.error_msg);
+          if (response.data.error.error_code === 5)
+            throw new Error("Вы ввели не валидный токен!");
+          if (response.data.error.error_code === 777)
+            throw new Error("Ошибка при запросе! Проверьте подключение!");
         } else {
           this.cities = response.data.response.items;
           this.isError = false;

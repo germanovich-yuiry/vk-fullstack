@@ -28,7 +28,7 @@ const LoadingText = styled.p`
 
 const Processing: FC = observer(() => {
   const {
-    cities: { isError, isLoading, errorMessage, invalidToken },
+    cities: { isError, isLoading, errorMessage, invalidToken, fetchError },
   } = useStores();
 
   const hasContent = isLoading || isError || invalidToken;
@@ -41,8 +41,12 @@ const Processing: FC = observer(() => {
           <LoadingText>Идет загрузка...</LoadingText>
         </LoadingContainer>
       )}
+
       {isError && <ErrorMessage message={errorMessage} />}
       {invalidToken && <ErrorMessage message="Не валидный токен!" />}
+      {fetchError && (
+        <ErrorMessage message="Ошибка запроса!.. Проверьте соединение" />
+      )}
     </Container>
   );
 });
