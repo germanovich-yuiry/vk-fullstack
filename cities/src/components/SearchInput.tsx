@@ -1,7 +1,5 @@
 import { FC } from "preact/compat";
-
 import styled from "styled-components";
-
 import { observer } from "mobx-react-lite";
 import { useStores } from "../root-store-context";
 
@@ -12,7 +10,7 @@ const StyledInput = styled.input`
   border-radius: 8px;
   border: 1px solid lightblue;
 
-  &:: placeholder {
+  &::placeholder {
     color: gray;
   }
 `;
@@ -23,10 +21,17 @@ const SearchInput: FC<{ disabled: boolean }> = observer(() => {
   } = useStores();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = (e.target as HTMLInputElement).value;
-    setQuery(query);
+    const query = e.target.value;
+
+    const sanitizedQuery = escapeRegExp(query);
+
+    setQuery(sanitizedQuery);
     loadCities();
   };
+
+  function escapeRegExp(string: string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
 
   return (
     <StyledInput
