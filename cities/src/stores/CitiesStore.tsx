@@ -20,7 +20,7 @@ class CitiesStore {
 
     this.loadCities = debounce(
       this.loadCities.bind(this),
-      800
+      600
     ) as () => Promise<void>;
   }
 
@@ -29,14 +29,16 @@ class CitiesStore {
   };
 
   setQuery = (query: string) => {
+    this.query = query;
     if (query.trim()) {
-      this.query = query;
       this.loadCities();
+    } else {
+      this.cities = [];
     }
   };
 
   loadCities = async () => {
-    if (this.query.trim()) {
+    if (this.query.trim() && !this.isLoading) {
       try {
         runInAction(() => {
           this.invalidToken = false;
