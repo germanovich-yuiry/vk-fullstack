@@ -8,13 +8,17 @@ import ErrorMessage from "./ErrorMessage";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../root-store-context";
 
-const Container = styled.div`
+const Container = styled.div<{ isOpen: boolean }>`
   width: 100%;
   height: auto;
   margin-bottom: 20px;
   transition: max-height 0.4s ease-in-out;
   overflow: hidden;
   max-height: ${({ isOpen }) => (isOpen ? "200px" : "0")};
+
+  .loader {
+    margin-bottom: 20px;
+  }
 `;
 
 const LoadingContainer = styled.div`
@@ -37,7 +41,7 @@ const Processing: FC = observer(() => {
     <Container isOpen={hasContent}>
       {isLoading && (
         <LoadingContainer>
-          <Spin style={{ marginBottom: "12px" }} />
+          <Spin className="loader" />
           <LoadingText>Идет загрузка...</LoadingText>
         </LoadingContainer>
       )}
