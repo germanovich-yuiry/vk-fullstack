@@ -1,13 +1,20 @@
-import { FC, useEffect, useRef, useState } from "preact/compat";
 import { City } from "../types/CityDTO";
+import { FC, useEffect, useRef, useState } from "preact/compat";
+
 import styled from "styled-components";
+
 import { Table } from "antd";
+
 import { observer } from "mobx-react-lite";
 
 const StyledTable = styled(Table)`
   width: 100%;
   .highlight {
     background-color: yellow;
+  }
+  .target {
+    height: "20px";
+    background-color: "transparent";
   }
 `;
 
@@ -94,10 +101,7 @@ const CityTable: FC<CityTableProps> = ({ cities, searchText }) => {
         pagination={false}
       />
 
-      <div
-        ref={loadMoreRef}
-        style={{ height: "20px", backgroundColor: "transparent" }}
-      />
+      <div ref={loadMoreRef} className="target" />
     </>
   );
 };
